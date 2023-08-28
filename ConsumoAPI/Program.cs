@@ -8,22 +8,24 @@ using System.Runtime.CompilerServices;
 using System.Text.Json;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-Console.WriteLine("Hello, World!");
-Console.WriteLine("Stock: " + await GetstockxCatalogo(GetToken(), "G  -052-545-K9"));
+Console.WriteLine("Ejemplo WebAPI");
+Console.WriteLine("Introduzca un catalogo");
+string catalogo;
+catalogo = Console.ReadLine();
+
+Console.WriteLine("Stock: " + await GetstockxCatalogo(GetToken(), catalogo));// "G  -052-545-K9"));
 Console.ReadKey();
 
 
     static string GetToken()
 {
-    Cliente cliente= new Cliente(new HttpClient() ); 
-
+    //Ejemplo con WebRequest(a partir de net 6 esta marcada como obsoleto)
     var url = $"http://oliauto.dyndns.org:2088/api/Acceso/Acceso";
     var request = (HttpWebRequest)WebRequest.Create(url);
-    string json = $"{{\"email\":\"marcelotorres@hotmail.com.ar\",\"password\":\"Aa1234!\"}}";
+    string json = $"{{\"email\":\"UserTest@Test.com.ar\",\"password\":\"Aa1234!\"}}";
     request.Method = "POST";
     request.ContentType = "application/json";
     request.Accept = "application/json";
-    
 
     using (var streamWriter = new StreamWriter(request.GetRequestStream()))
     {
@@ -45,8 +47,9 @@ Console.ReadKey();
 
                     RespuestaAutenticacion? respuesta =JsonSerializer.Deserialize<RespuestaAutenticacion>(responseBody);
 
-                    Console.WriteLine("Token = " + respuesta.token);
-                    Console.WriteLine("Expiracion = " + respuesta.expiracion);
+                    //Console.WriteLine("Token = " + respuesta.token);
+                    //Console.WriteLine("Expiracion = " + respuesta.expiracion);
+                    //Console.WriteLine("");
 
                     return respuesta.token;
                 }
@@ -56,7 +59,6 @@ Console.ReadKey();
     catch (WebException ex)
     {
         return "ERROR : " + ex.Message;
-
     }
 }
 
