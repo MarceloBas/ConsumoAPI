@@ -1,4 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
+// See https://aka.ms/new-console-template for more information
 using ConsumoAPI;
 using System.Net;
 using System.Net.Http;
@@ -41,7 +41,7 @@ Console.ReadKey();
 
                     var responseBody_ = JsonSerializer.Deserialize<RespuestaAutenticacion>(responseText_);
 
-                    return responseBody_.token.ToString();
+                    return responseBody_.accessToken.ToString();
                 }
                 else
                 {
